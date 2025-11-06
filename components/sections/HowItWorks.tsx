@@ -7,35 +7,32 @@ const steps = [
   {
     number: '01',
     title: 'Choose Your Style',
-    description: 'Select flowers, colors, and arrangement styles from our curated options or create your own.',
+    description: 'Select flowers, colors, and arrangement styles from our curated collection.',
     icon: (
       <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
       </svg>
     ),
-    color: 'from-violet-400 to-purple-500',
   },
   {
     number: '02',
-    title: 'AI Creates Magic',
-    description: 'Our AI generates a photorealistic bouquet in seconds, perfectly matching your vision.',
+    title: 'AI Design Assistance',
+    description: 'Our design tool creates a photorealistic bouquet preview in seconds.',
     icon: (
       <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
-    color: 'from-pink-400 to-rose-500',
   },
   {
     number: '03',
-    title: 'Get Your Quote',
-    description: 'Instantly see detailed pricing, flower quantities, and download your design to share or order.',
+    title: 'Review & Order',
+    description: 'See detailed pricing and flower quantities, then place your order with confidence.',
     icon: (
       <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    color: 'from-violet-400 to-indigo-500',
   },
 ]
 
@@ -44,29 +41,20 @@ export function HowItWorks() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section ref={ref} className="py-24 px-6 bg-white relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-400 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-300 rounded-full blur-3xl" />
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
+    <section ref={ref} className="py-20 px-6 bg-cream-50">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-violet-100 text-violet-700 rounded-full text-sm font-semibold mb-4">
-            Simple & Fast
-          </span>
-          <h2 className="font-serif text-5xl md:text-6xl font-bold text-violet-900 mb-4">
+          <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-4">
             How It Works
           </h2>
-          <p className="text-xl text-violet-600 max-w-2xl mx-auto">
-            Create professional floral designs in three simple steps
+          <p className="text-lg text-stone-600 max-w-2xl mx-auto">
+            Create custom floral arrangements in three simple steps
           </p>
         </motion.div>
 
@@ -75,38 +63,30 @@ export function HowItWorks() {
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
               className="relative"
             >
-              {/* Connecting Line */}
-              {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-20 left-full w-full h-0.5 bg-gradient-to-r from-violet-300 to-transparent -translate-x-1/2 z-0" />
-              )}
-
               {/* Card */}
-              <div className="relative bg-gradient-to-br from-white to-violet-50/50 rounded-3xl p-8 border-2 border-violet-100 hover:border-violet-300 transition-all duration-300 hover:shadow-xl group">
-                {/* Number Badge */}
-                <div className={`absolute -top-4 -right-4 w-16 h-16 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center text-white font-bold text-xl shadow-lg`}>
+              <div className="bg-white rounded-lg p-8 border border-stone-200 hover:shadow-lg transition-all duration-300">
+                {/* Number */}
+                <div className="w-12 h-12 rounded-full bg-sage-100 flex items-center justify-center text-sage-700 font-semibold text-lg mb-6">
                   {step.number}
                 </div>
 
                 {/* Icon */}
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} p-4 mb-6 text-white group-hover:scale-110 transition-transform duration-300`}>
+                <div className="w-12 h-12 text-stone-700 mb-6">
                   {step.icon}
                 </div>
 
                 {/* Content */}
-                <h3 className="font-serif text-2xl font-bold text-violet-900 mb-4">
+                <h3 className="font-serif text-2xl text-stone-900 mb-3">
                   {step.title}
                 </h3>
-                <p className="text-violet-600 leading-relaxed">
+                <p className="text-stone-600 leading-relaxed">
                   {step.description}
                 </p>
-
-                {/* Hover Effect */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-violet-500/0 to-pink-500/0 group-hover:from-violet-500/5 group-hover:to-pink-500/5 transition-all duration-300 pointer-events-none" />
               </div>
             </motion.div>
           ))}
@@ -114,22 +94,21 @@ export function HowItWorks() {
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
           className="text-center mt-16"
         >
-          <p className="text-violet-600 mb-6">Ready to create your perfect bouquet?</p>
           <motion.button
             onClick={() => {
               const aiSection = document.getElementById('ai-atelier')
               aiSection?.scrollIntoView({ behavior: 'smooth' })
             }}
-            className="px-8 py-4 bg-violet-600 text-white rounded-full font-semibold text-lg hover:bg-violet-700 hover:shadow-xl transition-all duration-300"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
+            className="btn-primary hover:bg-stone-800 transition-colors duration-300"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
-            Try AI Designer Now
+            Start Designing
           </motion.button>
         </motion.div>
       </div>

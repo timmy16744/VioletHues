@@ -19,118 +19,66 @@ export function Newsletter() {
   }
 
   return (
-    <section ref={ref} className="py-24 px-6 bg-gradient-to-br from-violet-100 via-petal-lilac to-petal-pink relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 opacity-20">
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-white"
-            style={{
-              width: Math.random() * 100 + 50,
-              height: Math.random() * 100 + 50,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, Math.sin(i) * 20, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 5 + i,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="max-w-4xl mx-auto relative z-10">
+    <section ref={ref} className="py-20 px-6 bg-white">
+      <div className="max-w-3xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           className="text-center"
         >
-          {/* Icon */}
-          <motion.div
-            className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/50 backdrop-blur-sm mb-6"
-            animate={{
-              rotate: [0, 10, -10, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          >
-            <svg className="w-10 h-10 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </motion.div>
-
-          <h2 className="font-serif text-5xl md:text-6xl font-bold text-violet-900 mb-6">
-            Join the Bloom
+          <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-4">
+            Stay Updated
           </h2>
 
-          <p className="text-xl text-violet-700 mb-10 max-w-2xl mx-auto">
-            Subscribe to receive exclusive offers, floral inspiration, and seasonal collections delivered to your inbox
+          <p className="text-lg text-stone-600 mb-10 max-w-xl mx-auto">
+            Subscribe to receive seasonal collections and floral inspiration
           </p>
 
           {/* Form */}
           <motion.form
             onSubmit={handleSubmit}
-            className="max-w-xl mx-auto"
+            className="max-w-lg mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="flex flex-col sm:flex-row gap-4">
-              <motion.input
+              <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                className="flex-1 px-6 py-4 rounded-full border-2 border-white/50 bg-white/70 backdrop-blur-sm focus:border-violet-500 focus:outline-none text-violet-900 placeholder-violet-400"
-                whileFocus={{ scale: 1.02 }}
+                placeholder="Email address"
+                className="flex-1 px-4 py-3 border border-stone-300 focus:border-stone-900 focus:outline-none text-stone-900 placeholder-stone-400"
                 required
               />
-              <motion.button
+              <button
                 type="submit"
-                className="px-8 py-4 bg-violet-600 text-white rounded-full font-semibold text-lg hover:bg-violet-700 hover:shadow-xl transition-all duration-300 whitespace-nowrap"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                className="btn-primary hover:bg-stone-800 transition-colors duration-300 whitespace-nowrap"
               >
-                {subscribed ? '✓ Subscribed!' : 'Subscribe'}
-              </motion.button>
+                {subscribed ? 'Subscribed' : 'Subscribe'}
+              </button>
             </div>
           </motion.form>
 
           {/* Privacy Note */}
           <motion.p
-            className="text-sm text-violet-600 mt-6"
+            className="text-xs text-stone-500 mt-4"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           >
             We respect your privacy. Unsubscribe at any time.
           </motion.p>
 
-          {/* Success Animation */}
+          {/* Success Message */}
           {subscribed && (
             <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              className="mt-8"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-6"
             >
-              <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/70 backdrop-blur-sm rounded-full">
-                <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span className="text-violet-900 font-semibold">Thank you for joining!</span>
-              </div>
+              <p className="text-sage-700 font-medium">Thank you for subscribing</p>
             </motion.div>
           )}
         </motion.div>
