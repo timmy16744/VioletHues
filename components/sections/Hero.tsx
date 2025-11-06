@@ -36,9 +36,18 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-xl md:text-2xl text-cream-50 mb-12 tracking-wide"
+          className="text-xl md:text-2xl text-cream-50 mb-3 tracking-wide"
         >
-          AI Floral Design Studio
+          Independent Florist
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="text-base md:text-lg text-cream-100/90 mb-12 max-w-2xl mx-auto"
+        >
+          Small batch, handcrafted arrangements made with love in our local studio
         </motion.p>
 
         <motion.button
@@ -50,7 +59,7 @@ export function Hero() {
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.98 }}
         >
-          Shop Collections
+          Design Your Bouquet
         </motion.button>
       </div>
 

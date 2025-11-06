@@ -34,17 +34,17 @@ export function Studio() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-6">
-              Our Studio
+              Meet Your Florist
             </h2>
 
             <p className="text-lg text-stone-600 mb-6 leading-relaxed">
-              At Violet Hues, every arrangement is thoughtfully crafted with passion and precision.
-              We combine traditional techniques with contemporary design sensibilities.
+              I&apos;m a small independent florist working from my local studio, crafting each arrangement by hand.
+              When you order from Violet Hues, you&apos;re not ordering from a corporation — you&apos;re working directly with me.
             </p>
 
             <p className="text-base text-stone-600 mb-8 leading-relaxed">
-              We source seasonal blooms from local growers and sustainable farms,
-              ensuring every creation is as eco-conscious as it is beautiful.
+              I partner with local growers and sustainable farms to source the freshest seasonal blooms.
+              Every bouquet is made with care, attention to detail, and a commitment to bringing your vision to life.
             </p>
 
             {/* Stats */}
@@ -54,24 +54,24 @@ export function Studio() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <div className="text-3xl font-serif text-stone-900 mb-1">500+</div>
-                <div className="text-sm text-stone-600">Designs Created</div>
+                <div className="text-3xl font-serif text-stone-900 mb-1">Local</div>
+                <div className="text-sm text-stone-600">Independent</div>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
-                <div className="text-3xl font-serif text-stone-900 mb-1">50+</div>
-                <div className="text-sm text-stone-600">Local Growers</div>
+                <div className="text-3xl font-serif text-stone-900 mb-1">Fresh</div>
+                <div className="text-sm text-stone-600">Seasonal Blooms</div>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.5 }}
               >
-                <div className="text-3xl font-serif text-stone-900 mb-1">100%</div>
-                <div className="text-sm text-stone-600">Sustainable</div>
+                <div className="text-3xl font-serif text-stone-900 mb-1">Made</div>
+                <div className="text-sm text-stone-600">By Hand</div>
               </motion.div>
             </div>
 
@@ -80,7 +80,7 @@ export function Studio() {
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              Learn More
+              Our Story
             </motion.button>
           </motion.div>
         </div>

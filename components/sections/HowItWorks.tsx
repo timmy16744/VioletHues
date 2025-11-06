@@ -6,8 +6,8 @@ import { motion, useInView } from 'framer-motion'
 const steps = [
   {
     number: '01',
-    title: 'Choose Your Style',
-    description: 'Select flowers, colors, and arrangement styles from our curated collection.',
+    title: 'Design Your Vision',
+    description: 'Use our tool to visualize your perfect bouquet. Pick your favorite flowers, colors, and style.',
     icon: (
       <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
@@ -16,18 +16,18 @@ const steps = [
   },
   {
     number: '02',
-    title: 'AI Design Assistance',
-    description: 'Our design tool creates a photorealistic bouquet preview in seconds.',
+    title: 'We Handcraft It',
+    description: 'Our florists recreate your exact design using fresh, locally-sourced blooms.',
     icon: (
       <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
       </svg>
     ),
   },
   {
     number: '03',
-    title: 'Review & Order',
-    description: 'See detailed pricing and flower quantities, then place your order with confidence.',
+    title: 'You Receive It',
+    description: 'Get the exact bouquet you designed, delivered fresh to your door. What you see is what you get.',
     icon: (
       <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -51,10 +51,10 @@ export function HowItWorks() {
           className="text-center mb-16"
         >
           <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-4">
-            How It Works
+            Your Vision, Our Craft
           </h2>
           <p className="text-lg text-stone-600 max-w-2xl mx-auto">
-            Create custom floral arrangements in three simple steps
+            Three simple steps from design to delivery
           </p>
         </motion.div>
 

@@ -64,10 +64,10 @@ export function FeaturedCollections() {
           className="text-center mb-16"
         >
           <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-4">
-            Featured Collections
+            Signature Styles
           </h2>
           <p className="text-lg text-stone-600 max-w-2xl mx-auto">
-            Curated arrangements that blend artistry with nature&apos;s finest blooms
+            Popular arrangements I love to create. Each one can be customized to your taste.
           </p>
         </motion.div>
 

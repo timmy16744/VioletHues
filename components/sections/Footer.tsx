@@ -23,7 +23,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <h3 className="font-serif text-3xl text-stone-900 mb-4">Violet Hues</h3>
             <p className="text-stone-600 mb-6 leading-relaxed">
-              Contemporary floral artistry. Thoughtfully designed, sustainably sourced.
+              Independent florist creating handcrafted arrangements with locally-sourced blooms.
             </p>
 
             {/* Social Links */}

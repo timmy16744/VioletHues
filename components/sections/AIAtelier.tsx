@@ -144,10 +144,13 @@ export function AIAtelier() {
           className="text-center mb-16"
         >
           <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-4">
-            Design Your Bouquet
+            See It. Design It. Get It.
           </h2>
-          <p className="text-lg text-stone-600 max-w-2xl mx-auto mb-8">
-            Create custom floral arrangements with our AI-powered design tool. Visualize your creation and receive detailed pricing.
+          <p className="text-lg text-stone-600 max-w-2xl mx-auto mb-3">
+            Design your dream bouquet with our custom tool and we&apos;ll handcraft the exact arrangement you see on screen.
+          </p>
+          <p className="text-base font-semibold text-sage-700 max-w-xl mx-auto mb-8">
+            What you create is what you receive — guaranteed.
           </p>
 
           {!isExpanded && (
