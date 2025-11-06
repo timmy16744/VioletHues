@@ -4,6 +4,13 @@ A modern, vibrant, and interactive landing page for Violet Hues, a contemporary 
 
 ## ✨ Features
 
+- **🤖 AI Floral Atelier**: Revolutionary AI-powered bouquet designer using Google Gemini
+  - Real-time bouquet generation with Imagen 3.0
+  - Interactive customization (flowers, colors, styles, sizes)
+  - AI-generated recipes with pricing
+  - Upload inspiration photos for instant analysis
+  - "Surprise Me" random generation
+  - Downloadable designs
 - **Animated Hero Section**: Full-viewport hero with particle-based floral bloom effects and GSAP animations
 - **Featured Collections**: Masonry grid layout with hover zoom, tilt effects, and smooth transitions
 - **The Studio**: Parallax scrolling with glassmorphic overlays and motion clips
@@ -38,6 +45,7 @@ A modern, vibrant, and interactive landing page for Violet Hues, a contemporary 
 
 - **Framework**: Next.js 14 with App Router
 - **Language**: TypeScript
+- **AI Integration**: Google Generative AI (Gemini/Imagen)
 - **Styling**: Tailwind CSS with custom configuration
 - **Animations**: Framer Motion + GSAP + ScrollTrigger
 - **Smooth Scroll**: @studio-freight/lenis
@@ -49,6 +57,11 @@ A modern, vibrant, and interactive landing page for Violet Hues, a contemporary 
 ```bash
 # Install dependencies
 npm install
+
+# Configure AI Atelier (Optional but recommended)
+# 1. Get your Google Gemini API key from https://ai.google.dev/
+# 2. Copy .env.local.example to .env.local
+# 3. Add your API key to .env.local
 
 # Run development server
 npm run dev
@@ -62,15 +75,18 @@ npm start
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
 
+**See [AI_ATELIER_SETUP.md](./AI_ATELIER_SETUP.md) for detailed AI Atelier configuration.**
+
 ## 🎯 Sections
 
 1. **Hero**: Full-viewport animated hero with floating petals and gradient mesh
-2. **Featured Collections**: Six curated collections in masonry layout
-3. **The Studio**: Brand story with parallax image and statistics
-4. **Custom Creations**: Interactive request form with animated preview
-5. **Testimonials**: Customer reviews with 3D carousel navigation
-6. **Newsletter**: Subscription form with animated background
-7. **Footer**: Comprehensive footer with floating petal animation
+2. **🤖 AI Floral Atelier**: AI-powered bouquet designer (see setup guide)
+3. **Featured Collections**: Six curated collections in masonry layout
+4. **The Studio**: Brand story with parallax image and statistics
+5. **Custom Creations**: Interactive request form with animated preview
+6. **Testimonials**: Customer reviews with 3D carousel navigation
+7. **Newsletter**: Subscription form with animated background
+8. **Footer**: Comprehensive footer with floating petal animation
 
 ## 🎭 Animations
 
