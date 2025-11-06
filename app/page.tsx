@@ -1,4 +1,5 @@
 import { Hero } from '@/components/sections/Hero'
+import { AIAtelier } from '@/components/sections/AIAtelier'
 import { FeaturedCollections } from '@/components/sections/FeaturedCollections'
 import { Studio } from '@/components/sections/Studio'
 import { CustomCreations } from '@/components/sections/CustomCreations'
@@ -12,6 +13,7 @@ export default function Home() {
     <main className="overflow-hidden">
       <CursorTrail />
       <Hero />
+      <AIAtelier />
       <FeaturedCollections />
       <Studio />
       <CustomCreations />
