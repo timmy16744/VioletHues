@@ -3,12 +3,12 @@ import './globals.css'
 import { SmoothScroll } from '@/components/SmoothScroll'
 
 export const metadata: Metadata = {
-  title: 'Violet Hughes — Where Design Blooms',
+  title: 'Violet Hues — Where Design Blooms',
   description: 'Floral artistry reimagined for the modern era. Contemporary floral and lifestyle brand blending art, nature, and design.',
-  keywords: ['floral design', 'floral artistry', 'lifestyle brand', 'contemporary florals', 'violet hughes'],
-  authors: [{ name: 'Violet Hughes' }],
+  keywords: ['floral design', 'floral artistry', 'lifestyle brand', 'contemporary florals', 'violet hues'],
+  authors: [{ name: 'Violet Hues' }],
   openGraph: {
-    title: 'Violet Hughes — Where Design Blooms',
+    title: 'Violet Hues — Where Design Blooms',
     description: 'Floral artistry reimagined for the modern era.',
     type: 'website',
   },

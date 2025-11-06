@@ -1,6 +1,6 @@
-# Violet Hughes — Where Design Blooms 🌸
+# Violet Hues — Where Design Blooms 🌸
 
-A modern, vibrant, and interactive landing page for Violet Hughes, a contemporary floral and lifestyle brand that blends art, nature, and design.
+A modern, vibrant, and interactive landing page for Violet Hues, a contemporary floral and lifestyle brand that blends art, nature, and design.
 
 ## ✨ Features
 
@@ -91,7 +91,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ## 🌿 Sustainability Note
 
-The design emphasizes Violet Hughes' commitment to sustainability with:
+The design emphasizes Violet Hues' commitment to sustainability with:
 - Eco-conscious messaging
 - Local grower partnerships highlighted
 - Sustainable sourcing emphasized
@@ -111,7 +111,7 @@ All content is easily editable within the component files in `components/section
 
 ## 📄 License
 
-© 2025 Violet Hughes. All rights reserved.
+© 2025 Violet Hues. All rights reserved.
 
 ## 🚀 Deploy to Vercel
 
@@ -121,4 +121,4 @@ The easiest way to deploy is using [Vercel](https://vercel.com):
 
 ---
 
-Built with 💜 for Violet Hughes
+Built with 💜 for Violet Hues

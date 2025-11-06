@@ -131,7 +131,7 @@ export function Hero() {
         </motion.div>
 
         <h1 className="hero-title font-serif text-6xl md:text-8xl lg:text-9xl font-bold text-violet-900 mb-6 leading-tight">
-          Violet Hughes
+          Violet Hues
         </h1>
 
         <p className="hero-subtitle text-2xl md:text-3xl text-violet-700 mb-4 font-light">

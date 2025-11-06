@@ -68,7 +68,7 @@ export function Footer() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h3 className="font-serif text-4xl font-bold mb-4">Violet Hughes</h3>
+              <h3 className="font-serif text-4xl font-bold mb-4">Violet Hues</h3>
               <p className="text-violet-200 mb-6 leading-relaxed">
                 Contemporary floral artistry that brings nature&apos;s beauty into your everyday moments.
                 Thoughtfully designed, sustainably sourced, lovingly crafted.
@@ -131,7 +131,7 @@ export function Footer() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              © {currentYear} Violet Hughes. All rights reserved.
+              © {currentYear} Violet Hues. All rights reserved.
             </motion.p>
 
             <motion.div

@@ -45,12 +45,12 @@ export function Studio() {
             </h2>
 
             <p className="text-xl text-violet-100 mb-6 leading-relaxed">
-              Step behind the scenes at Violet Hughes Studio, where creativity blooms daily.
+              Step behind the scenes at Violet Hues Studio, where creativity blooms daily.
               Each arrangement is thoughtfully crafted with passion, precision, and an eye for the extraordinary.
             </p>
 
             <p className="text-lg text-violet-200 mb-8 leading-relaxed">
-              Founded by floral artist Violet Hughes, our studio combines traditional techniques
+              Founded by floral artist Violet Hues, our studio combines traditional techniques
               with contemporary design sensibilities. We source seasonal blooms from local growers
               and sustainable farms, ensuring every creation is as eco-conscious as it is beautiful.
             </p>
@@ -120,7 +120,7 @@ export function Studio() {
                 <p className="text-violet-100 italic text-lg">
                   &quot;Every bloom tells a story, every arrangement is a masterpiece waiting to unfold.&quot;
                 </p>
-                <p className="text-violet-300 font-semibold mt-2">— Violet Hughes</p>
+                <p className="text-violet-300 font-semibold mt-2">— Violet Hues</p>
               </motion.div>
             </motion.div>
 

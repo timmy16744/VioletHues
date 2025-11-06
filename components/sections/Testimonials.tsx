@@ -8,7 +8,7 @@ const testimonials = [
     id: 1,
     name: 'Sarah Mitchell',
     role: 'Bride',
-    text: 'Violet Hughes transformed our wedding into a floral wonderland. Every detail was perfect, and the arrangements exceeded our wildest dreams.',
+    text: 'Violet Hues transformed our wedding into a floral wonderland. Every detail was perfect, and the arrangements exceeded our wildest dreams.',
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
     rating: 5,
   },
@@ -16,7 +16,7 @@ const testimonials = [
     id: 2,
     name: 'David Chen',
     role: 'Event Planner',
-    text: 'Working with Violet Hughes is always a pleasure. Their creativity and professionalism make every event spectacular.',
+    text: 'Working with Violet Hues is always a pleasure. Their creativity and professionalism make every event spectacular.',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
     rating: 5,
   },
@@ -32,7 +32,7 @@ const testimonials = [
     id: 4,
     name: 'James Thompson',
     role: 'Anniversary Gift',
-    text: 'I wanted something special for my wife, and Violet Hughes delivered beyond expectations. The arrangement was a work of art.',
+    text: 'I wanted something special for my wife, and Violet Hues delivered beyond expectations. The arrangement was a work of art.',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop',
     rating: 5,
   },
@@ -65,7 +65,7 @@ export function Testimonials() {
             What Our Clients Say
           </h2>
           <p className="text-xl text-violet-600 max-w-2xl mx-auto">
-            Hear from those who&apos;ve experienced the Violet Hughes magic
+            Hear from those who&apos;ve experienced the Violet Hues magic
           </p>
         </motion.div>
 
