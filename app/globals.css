@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Violet color palette */
+  --color-violet-50: #faf5ff;
+  --color-violet-100: #f3e8ff;
+  --color-violet-200: #e9d5ff;
+  --color-violet-300: #d8b4fe;
+  --color-violet-400: #c084fc;
+  --color-violet-500: #a855f7;
+  --color-violet-600: #9333ea;
+  --color-violet-700: #7c3aed;
+  --color-violet-800: #6b21a8;
+  --color-violet-900: #581c87;
+  --color-violet-950: #2d1b4e;
+
+  /* Brand colors */
+  --color-lavender: #f8f5ff;
+  --color-cream: #faf8f5;
+  --color-deep-violet: #2d1b4e;
+
+  /* Semantic colors */
+  --color-background: #ffffff;
+  --color-foreground: #2d1b4e;
+  --color-muted: #6b7280;
+  --color-accent: #9333ea;
+
+  /* Fonts */
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+}
+
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-inter);
+}
+
+/* Typography utilities */
+.font-serif {
+  font-family: var(--font-playfair);
+}
+
+.font-sans {
+  font-family: var(--font-inter);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-lavender);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-violet-300);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-violet-400);
+}
+
+/* Gradient backgrounds */
+.bg-gradient-violet {
+  background: linear-gradient(135deg, var(--color-violet-100) 0%, var(--color-violet-200) 100%);
+}
+
+.bg-gradient-hero {
+  background: linear-gradient(180deg, var(--color-lavender) 0%, var(--color-background) 100%);
+}
+
+/* Animation utilities */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+/* Selection color */
+::selection {
+  background: var(--color-violet-200);
+  color: var(--color-deep-violet);
+}
