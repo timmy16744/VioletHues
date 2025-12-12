@@ -100,9 +100,19 @@ export default function Header() {
               <span className="inline-block transition-colors group-hover:text-violet-700">
                 Violet
               </span>{" "}
-              <span className="inline-block text-violet-600 transition-colors group-hover:text-violet-500">
+              <motion.span
+                className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-fuchsia-500 to-violet-600 bg-[length:200%_auto]"
+                animate={{
+                  backgroundPosition: ["0% center", "200% center"],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              >
                 Hues
-              </span>
+              </motion.span>
             </motion.span>
           </Link>
 
