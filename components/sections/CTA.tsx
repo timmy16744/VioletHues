@@ -2,261 +2,146 @@
 
 import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
-import Button from "@/components/ui/Button";
+import { ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
-import { springConfig } from "@/lib/animations";
-import FloatingPetals from "@/components/decorative/FloatingPetals";
-
-// Header text variants
-const headerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const textVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: springConfig.snappy,
-  },
-};
-
-const buttonContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.5,
-    },
-  },
-};
-
-const buttonVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: springConfig.bouncy,
-  },
-};
 
 export default function CTA() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Scroll-linked parallax
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const smoothBackgroundY = useSpring(backgroundY, { stiffness: 100, damping: 30 });
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const textY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const smoothBackgroundY = useSpring(backgroundY, { stiffness: 80, damping: 25 });
+  const smoothTextY = useSpring(textY, { stiffness: 80, damping: 25 });
 
   return (
-    <section ref={containerRef} className="py-24 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={springConfig.gentle}
-          className="relative rounded-3xl overflow-hidden"
-        >
-          {/* Animated gradient background */}
+    <section ref={containerRef} className="relative h-screen flex items-center overflow-hidden">
+      {/* Background Image with Parallax */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ y: smoothBackgroundY }}
+      >
+        <img
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1280&fit=crop&q=90"
+          alt="Beautiful floral arrangement"
+          className="w-full h-[120%] object-cover"
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-noir/70" />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-noir via-noir/50 to-transparent" />
+      </motion.div>
+
+      {/* Art Deco decorations */}
+      <div className="absolute top-12 left-12 w-32 h-32 border-l border-t border-champagne/20 hidden lg:block" />
+      <div className="absolute bottom-12 right-12 w-32 h-32 border-r border-b border-champagne/20 hidden lg:block" />
+
+      {/* Floating decorative elements */}
+      <motion.div
+        className="absolute top-1/4 right-1/4 w-24 h-24 border border-champagne/10 rotate-45"
+        animate={{
+          y: [-20, 20, -20],
+          rotate: [45, 55, 45],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-1/3 left-1/5 w-16 h-16 border border-champagne/10 rotate-45"
+        animate={{
+          y: [20, -20, 20],
+          rotate: [45, 35, 45],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Content */}
+      <motion.div
+        style={{ y: smoothTextY }}
+        className="container-luxe relative z-10"
+      >
+        <div className="max-w-3xl mx-auto text-center">
+          {/* Label */}
           <motion.div
-            className="absolute inset-0"
-            style={{ y: smoothBackgroundY }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center justify-center gap-4 mb-8"
           >
-            {/* Base gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-violet-600 via-violet-700 to-violet-900" />
-
-            {/* Animated gradient overlay */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-tr from-violet-500/50 via-transparent to-fuchsia-500/30"
-              animate={{
-                opacity: [0.3, 0.6, 0.3],
-                backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-
-            {/* Moving shimmer */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-              animate={{
-                x: ["-100%", "100%"],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatDelay: 5,
-                ease: "easeInOut",
-              }}
-            />
+            <div className="w-12 h-px bg-gradient-to-r from-transparent to-champagne" />
+            <span className="text-xs tracking-[0.3em] uppercase text-champagne">
+              Begin Your Journey
+            </span>
+            <div className="w-12 h-px bg-gradient-to-l from-transparent to-champagne" />
           </motion.div>
 
-          {/* Floating orbs */}
+          {/* Heading */}
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light text-ivory leading-tight mb-8"
+          >
+            Ready to Bring Your
+            <span className="text-champagne italic"> Vision to Life?</span>
+          </motion.h2>
+
+          {/* Subtext */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="text-ivory/70 text-lg lg:text-xl leading-relaxed mb-12 max-w-xl mx-auto"
+          >
+            Let&apos;s create something beautiful together. Whether it&apos;s your
+            wedding day or simply brightening someone&apos;s day, we&apos;re here to help.
+          </motion.p>
+
+          {/* Buttons */}
           <motion.div
-            className="absolute -top-20 -left-20 w-64 h-64 bg-violet-400/20 rounded-full blur-3xl"
-            animate={{
-              scale: [1, 1.3, 1],
-              x: [-20, 20, -20],
-              y: [-20, 20, -20],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute -bottom-20 -right-20 w-80 h-80 bg-fuchsia-400/20 rounded-full blur-3xl"
-            animate={{
-              scale: [1.3, 1, 1.3],
-              x: [20, -20, 20],
-              y: [20, -20, 20],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Link href="/contact" className="group">
+              <button className="relative px-10 py-4 bg-champagne border border-champagne text-noir text-xs tracking-[0.15em] uppercase font-medium overflow-hidden transition-all duration-500 group-hover:text-ivory">
+                <span className="absolute inset-0 bg-noir transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+                <span className="relative flex items-center justify-center gap-3">
+                  Start Your Consultation
+                  <ArrowUpRight
+                    size={14}
+                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
+                </span>
+              </button>
+            </Link>
+            <Link href="/services" className="group">
+              <button className="relative px-10 py-4 bg-transparent border border-ivory/30 text-ivory text-xs tracking-[0.15em] uppercase font-medium overflow-hidden transition-all duration-500 hover:border-champagne">
+                <span className="relative">View Services</span>
+              </button>
+            </Link>
+          </motion.div>
+        </div>
+      </motion.div>
 
-          {/* Animated background pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <motion.svg
-              className="w-full h-full"
-              viewBox="0 0 100 100"
-              preserveAspectRatio="none"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-            >
-              <defs>
-                <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                  <circle cx="5" cy="5" r="1" fill="white" />
-                </pattern>
-              </defs>
-              <rect width="100" height="100" fill="url(#grid)" />
-            </motion.svg>
-          </div>
-
-          {/* Floating petals */}
-          <FloatingPetals count={8} direction="up" color="white" />
-
-          {/* Content */}
-          <div className="relative px-8 py-16 md:px-16 md:py-24 text-center">
-            <motion.div
-              variants={headerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              {/* Decorative sparkle */}
-              <motion.div
-                className="flex justify-center mb-6"
-                initial={{ opacity: 0, scale: 0 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ ...springConfig.bouncy, delay: 0.1 }}
-              >
-                <motion.div
-                  animate={{
-                    rotate: [0, 180, 360],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <Sparkles className="w-8 h-8 text-violet-200" />
-                </motion.div>
-              </motion.div>
-
-              <motion.h2
-                variants={textVariants}
-                className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4"
-              >
-                Ready to Bring Your Vision to Life?
-              </motion.h2>
-              <motion.p
-                variants={textVariants}
-                className="text-violet-200 max-w-2xl mx-auto mb-8 text-lg"
-              >
-                Let&apos;s create something beautiful together. Whether it&apos;s your
-                wedding day, a special celebration, or simply brightening someone&apos;s
-                day, I&apos;m here to help.
-              </motion.p>
-            </motion.div>
-
-            {/* Buttons with stagger */}
-            <motion.div
-              variants={buttonContainerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <motion.div variants={buttonVariants}>
-                <Link href="/contact">
-                  <Button
-                    size="lg"
-                    magnetic
-                    className="bg-white text-violet-700 hover:bg-violet-50 w-full sm:w-auto group shadow-lg shadow-violet-900/30"
-                  >
-                    Start Your Consultation
-                    <motion.span
-                      className="ml-2"
-                      animate={{ x: [0, 4, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      <ArrowRight size={18} />
-                    </motion.span>
-                  </Button>
-                </Link>
-              </motion.div>
-              <motion.div variants={buttonVariants}>
-                <Link href="/services">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    magnetic
-                    className="border-white/50 text-white hover:bg-white/10 hover:border-white w-full sm:w-auto backdrop-blur-sm"
-                  >
-                    View Services
-                  </Button>
-                </Link>
-              </motion.div>
-            </motion.div>
-
-            {/* Bottom decorative line */}
-            <motion.div
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-full"
-              initial={{ scaleX: 0, opacity: 0 }}
-              whileInView={{ scaleX: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-            />
-          </div>
-        </motion.div>
-      </div>
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-ivory to-transparent" />
     </section>
   );
 }

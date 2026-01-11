@@ -15,13 +15,13 @@ interface Petal {
 interface FloatingPetalsProps {
   count?: number;
   direction?: "up" | "down";
-  color?: "violet" | "pink" | "white";
+  color?: "champagne" | "blush" | "ivory";
 }
 
 export default function FloatingPetals({
-  count = 15,
+  count = 12,
   direction = "up",
-  color = "violet",
+  color = "champagne",
 }: FloatingPetalsProps) {
   const [petals, setPetals] = useState<Petal[]>([]);
 
@@ -31,9 +31,9 @@ export default function FloatingPetals({
       newPetals.push({
         id: i,
         x: Math.random() * 100,
-        size: Math.random() * 20 + 10,
-        duration: Math.random() * 10 + 15,
-        delay: Math.random() * 10,
+        size: Math.random() * 16 + 8,
+        duration: Math.random() * 12 + 18,
+        delay: Math.random() * 12,
         rotation: Math.random() * 360,
       });
     }
@@ -41,9 +41,9 @@ export default function FloatingPetals({
   }, [count]);
 
   const colorClasses = {
-    violet: "text-violet-300/40",
-    pink: "text-pink-300/40",
-    white: "text-white/30",
+    champagne: "text-champagne/20",
+    blush: "text-blush/25",
+    ivory: "text-ivory/15",
   };
 
   return (
@@ -61,7 +61,7 @@ export default function FloatingPetals({
           animate={{
             y: direction === "up" ? "-10%" : "110%",
             rotate: petal.rotation + 360,
-            opacity: [0, 1, 1, 0],
+            opacity: [0, 0.8, 0.8, 0],
           }}
           transition={{
             duration: petal.duration,
@@ -74,13 +74,8 @@ export default function FloatingPetals({
             height: petal.size,
           }}
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-full h-full"
-          >
-            <path d="M12 2C13.5 5 16 7.5 19 9C16 10.5 13.5 13 12 16C10.5 13 8 10.5 5 9C8 7.5 10.5 5 12 2Z" />
-          </svg>
+          {/* Diamond shape for Art Deco feel */}
+          <div className="w-full h-full bg-current rotate-45" />
         </motion.div>
       ))}
     </div>

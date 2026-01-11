@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonHTMLAttributes, forwardRef, useRef, useState } from "react";
+import { forwardRef, useRef, useState } from "react";
 import { motion, HTMLMotionProps } from "framer-motion";
 
 interface ButtonProps extends Omit<HTMLMotionProps<"button">, "children"> {
@@ -22,42 +22,26 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const [ripples, setRipples] = useState<{ x: number; y: number; id: number }[]>([]);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [magneticPosition, setMagneticPosition] = useState({ x: 0, y: 0 });
 
     const baseStyles =
-      "relative inline-flex items-center justify-center font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden";
+      "relative inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-champagne focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden transition-all duration-500";
 
     const variants = {
       primary:
-        "bg-gradient-to-r from-violet-600 to-violet-700 text-white hover:from-violet-700 hover:to-violet-800 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40",
+        "bg-champagne text-noir border border-champagne hover:bg-transparent hover:text-champagne",
       secondary:
-        "bg-violet-100 text-violet-900 hover:bg-violet-200 shadow-sm hover:shadow-md",
+        "bg-noir text-ivory border border-noir hover:bg-transparent hover:text-noir",
       outline:
-        "border-2 border-violet-600 text-violet-600 hover:bg-violet-50 hover:border-violet-700",
-      ghost: "text-violet-600 hover:bg-violet-50",
+        "border border-noir text-noir hover:bg-noir hover:text-ivory",
+      ghost: "text-noir hover:text-champagne",
     };
 
     const sizes = {
-      sm: "px-4 py-2 text-sm",
-      md: "px-6 py-2.5 text-sm",
-      lg: "px-8 py-3.5 text-base",
-    };
-
-    // Handle ripple effect on click
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      const button = buttonRef.current || (ref as React.RefObject<HTMLButtonElement>)?.current;
-      if (button) {
-        const rect = button.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const id = Date.now();
-        setRipples((prev) => [...prev, { x, y, id }]);
-        setTimeout(() => {
-          setRipples((prev) => prev.filter((ripple) => ripple.id !== id));
-        }, 600);
-      }
+      sm: "px-5 py-2 text-xs tracking-[0.1em] uppercase",
+      md: "px-7 py-3 text-xs tracking-[0.1em] uppercase",
+      lg: "px-10 py-4 text-xs tracking-[0.15em] uppercase",
     };
 
     // Handle magnetic effect
@@ -68,7 +52,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         const rect = button.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
-        setMagneticPosition({ x: x * 0.2, y: y * 0.2 });
+        setMagneticPosition({ x: x * 0.15, y: y * 0.15 });
       }
     };
 
@@ -80,7 +64,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <motion.button
         ref={buttonRef}
         className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
-        onClick={handleClick}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         whileHover={{ scale: 1.02 }}
@@ -91,30 +74,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         }}
         transition={{
           type: "spring",
-          stiffness: 400,
-          damping: 25,
+          stiffness: 300,
+          damping: 20,
         }}
         {...props}
       >
-        {/* Shimmer overlay for primary variant */}
-        {variant === "primary" && (
-          <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700 pointer-events-none" />
-        )}
-
-        {/* Ripple effects */}
-        {ripples.map((ripple) => (
-          <span
-            key={ripple.id}
-            className="absolute rounded-full bg-white/30 animate-[ripple_0.6s_linear]"
-            style={{
-              left: ripple.x,
-              top: ripple.y,
-              width: 10,
-              height: 10,
-              transform: "translate(-50%, -50%)",
-            }}
-          />
-        ))}
+        {/* Shimmer effect on hover */}
+        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700 pointer-events-none" />
 
         {/* Button content */}
         <span className="relative z-10 flex items-center">{children}</span>

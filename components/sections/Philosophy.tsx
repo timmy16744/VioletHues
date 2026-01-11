@@ -1,243 +1,152 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { Leaf, Heart, Sparkles, Sun } from "lucide-react";
-import { useRef, useState } from "react";
-import { springConfig } from "@/lib/animations";
+import { useRef } from "react";
 
 const pillars = [
   {
-    icon: Heart,
+    number: "01",
     title: "Personal Touch",
-    description: "Every arrangement is crafted with personal attention to detail, ensuring your vision comes to life exactly as you imagined.",
+    description: "Every arrangement is crafted with attention to detail, ensuring your vision comes to life exactly as imagined.",
   },
   {
-    icon: Leaf,
+    number: "02",
     title: "Local Sourcing",
-    description: "I prioritize working with local growers, bringing you the freshest blooms while supporting our community and the environment.",
+    description: "We prioritize working with local growers, bringing you the freshest blooms while supporting our community.",
   },
   {
-    icon: Sun,
+    number: "03",
     title: "Seasonal Beauty",
-    description: "Embracing nature's rhythm, I work with what each season offers, creating arrangements that feel authentic and alive.",
+    description: "Embracing nature's rhythm, we work with what each season offers, creating arrangements that feel authentic.",
   },
   {
-    icon: Sparkles,
+    number: "04",
     title: "Family Values",
     description: "As a mother, I understand the importance of those special moments. I bring warmth and care to every creation.",
   },
 ];
 
-// Text reveal with mask animation
-const textRevealVariants = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-    clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0 100%)",
-    transition: {
-      ...springConfig.snappy,
-      clipPath: { duration: 0.6, ease: [0.33, 1, 0.68, 1] },
-    },
-  },
-};
-
-const headerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-// Pillar card variants with hover lift
 const pillarVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
-      ...springConfig.snappy,
-      delay: 0.3 + i * 0.1,
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1] as const,
+      delay: 0.2 + i * 0.1,
     },
   }),
 };
-
-// Pillar card component with hover effects
-function PillarCard({ pillar, index }: { pillar: typeof pillars[0]; index: number }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const Icon = pillar.icon;
-
-  return (
-    <motion.div
-      custom={index}
-      variants={pillarVariants}
-      className="relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <motion.div
-        className="p-5 bg-lavender rounded-2xl border border-transparent cursor-default h-full"
-        animate={{
-          y: isHovered ? -8 : 0,
-          boxShadow: isHovered
-            ? "0 20px 40px -10px rgba(139, 92, 246, 0.2)"
-            : "0 0px 0px 0px rgba(139, 92, 246, 0)",
-          borderColor: isHovered ? "rgba(167, 139, 250, 0.3)" : "transparent",
-        }}
-        transition={springConfig.snappy}
-      >
-        {/* Icon container with pulse effect */}
-        <motion.div
-          className="w-10 h-10 bg-violet-200 rounded-xl flex items-center justify-center mb-3"
-          animate={{
-            scale: isHovered ? [1, 1.1, 1] : 1,
-            backgroundColor: isHovered ? "#c4b5fd" : "#ddd6fe",
-          }}
-          transition={{ duration: 0.5 }}
-        >
-          <motion.div
-            animate={{ rotate: isHovered ? [0, -10, 10, 0] : 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Icon className="w-5 h-5 text-violet-700" />
-          </motion.div>
-        </motion.div>
-
-        <motion.h3
-          className="font-semibold text-violet-900 mb-1"
-          animate={{ color: isHovered ? "#7c3aed" : "#4c1d95" }}
-          transition={{ duration: 0.2 }}
-        >
-          {pillar.title}
-        </motion.h3>
-        <p className="text-sm text-violet-600 leading-relaxed">
-          {pillar.description}
-        </p>
-      </motion.div>
-    </motion.div>
-  );
-}
 
 export default function Philosophy() {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
-  // Scroll-linked parallax for the image
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  // Image moves slower than scroll (parallax effect)
-  const imageY = useTransform(scrollYProgress, [0, 1], [80, -80]);
-  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1, 1.05]);
-  const decorY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1, 1.05]);
+  const textY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
-  // Smoothed values with spring physics
-  const smoothImageY = useSpring(imageY, { stiffness: 100, damping: 30 });
-  const smoothImageScale = useSpring(imageScale, { stiffness: 100, damping: 30 });
-  const smoothDecorY = useSpring(decorY, { stiffness: 100, damping: 30 });
+  const smoothImageY = useSpring(imageY, { stiffness: 80, damping: 25 });
+  const smoothImageScale = useSpring(imageScale, { stiffness: 80, damping: 25 });
+  const smoothTextY = useSpring(textY, { stiffness: 80, damping: 25 });
 
   return (
-    <section ref={containerRef} className="py-24 bg-white relative overflow-hidden">
-      {/* Subtle background decoration */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          className="absolute -top-40 -right-40 w-80 h-80 bg-violet-50 rounded-full blur-3xl"
-          style={{ y: smoothDecorY }}
-        />
-        <motion.div
-          className="absolute -bottom-40 -left-40 w-96 h-96 bg-violet-100/50 rounded-full blur-3xl"
-          style={{ y: smoothDecorY }}
-        />
-      </div>
+    <section ref={containerRef} className="section-luxe bg-noir relative overflow-hidden">
+      {/* Subtle grain */}
+      <div className="grain-overlay" style={{ opacity: 0.02 }} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      {/* Art Deco corner elements */}
+      <div className="absolute top-12 left-12 w-24 h-24 border-l border-t border-champagne/10 hidden lg:block" />
+      <div className="absolute bottom-12 right-12 w-24 h-24 border-r border-b border-champagne/10 hidden lg:block" />
+
+      <div className="container-luxe">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Image Side with parallax */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={springConfig.gentle}
-            className="relative"
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="relative order-2 lg:order-1"
           >
             <div
               ref={imageRef}
-              className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl shadow-violet-200/30"
+              className="relative aspect-[4/5] overflow-hidden"
             >
-              <motion.img
-                src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=800&h=1000&fit=crop"
-                alt="Chiara arranging flowers in her studio"
-                className="w-full h-full object-cover"
+              <motion.div
+                className="absolute inset-0"
                 style={{
                   y: smoothImageY,
                   scale: smoothImageScale,
                 }}
-              />
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=900&h=1125&fit=crop&q=90"
+                  alt="Chiara arranging flowers in her studio"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
 
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-violet-900/20 via-transparent to-violet-900/5 pointer-events-none" />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-noir/40 via-noir/10 to-transparent pointer-events-none" />
+
+              {/* Corner frame */}
+              <div className="absolute inset-4 border border-champagne/20 pointer-events-none" />
             </div>
 
-            {/* Decorative element with parallax */}
+            {/* Floating quote */}
             <motion.div
-              className="absolute -bottom-6 -right-6 w-48 h-48 bg-violet-100 rounded-3xl -z-10"
-              style={{ y: smoothDecorY }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ ...springConfig.bouncy, delay: 0.3 }}
-            />
-
-            {/* Floating accent */}
-            <motion.div
-              className="absolute -top-4 -left-4 w-20 h-20 bg-violet-500/10 rounded-full blur-xl"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            />
+              transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute -bottom-8 -right-4 lg:right-8 glass-dark-luxe px-8 py-6 max-w-xs"
+            >
+              <p className="font-serif text-lg text-ivory/90 italic leading-relaxed">
+                "Flowers are more than decoration — they're expressions of emotion."
+              </p>
+              <p className="text-xs tracking-[0.2em] uppercase text-champagne mt-4">
+                — Chiara
+              </p>
+            </motion.div>
           </motion.div>
 
           {/* Content Side */}
-          <div>
+          <motion.div
+            style={{ y: smoothTextY }}
+            className="order-1 lg:order-2"
+          >
             <motion.div
-              variants={headerVariants}
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              className="mb-10"
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-12"
             >
-              <motion.span
-                variants={textRevealVariants}
-                className="inline-block px-4 py-1.5 bg-violet-100 text-violet-700 text-sm font-medium rounded-full mb-4 hover-scale"
-              >
-                My Philosophy
-              </motion.span>
-              <motion.h2
-                variants={textRevealVariants}
-                className="font-serif text-3xl md:text-4xl font-semibold text-violet-950 mb-4"
-              >
-                Flowers That Come From the Heart
-              </motion.h2>
-              <motion.p
-                variants={textRevealVariants}
-                className="text-violet-700 leading-relaxed"
-              >
-                I believe that flowers are more than just decorations – they&apos;re
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-px bg-champagne" />
+                <span className="text-xs tracking-[0.3em] uppercase text-champagne">
+                  Our Philosophy
+                </span>
+              </div>
+              <h2 className="font-serif text-4xl lg:text-5xl xl:text-6xl font-light text-ivory leading-tight mb-6">
+                Flowers That Speak
+                <span className="text-champagne italic"> From the Heart</span>
+              </h2>
+              <p className="text-ivory/60 text-lg leading-relaxed">
+                We believe that flowers are more than just decorations – they're
                 expressions of emotion, celebrations of life, and connections to nature.
-                Every arrangement I create is infused with intention and care.
-              </motion.p>
+                Every arrangement is infused with intention and care.
+              </p>
             </motion.div>
 
+            {/* Pillars */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -245,10 +154,25 @@ export default function Philosophy() {
               className="grid sm:grid-cols-2 gap-6"
             >
               {pillars.map((pillar, index) => (
-                <PillarCard key={pillar.title} pillar={pillar} index={index} />
+                <motion.div
+                  key={pillar.title}
+                  custom={index}
+                  variants={pillarVariants}
+                  className="group p-6 border border-ivory/5 hover:border-champagne/20 transition-colors duration-500"
+                >
+                  <span className="text-xs text-champagne/60 font-medium">
+                    {pillar.number}
+                  </span>
+                  <h3 className="font-serif text-xl text-ivory mt-2 mb-3 group-hover:text-champagne transition-colors duration-300">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-ivory/50 text-sm leading-relaxed">
+                    {pillar.description}
+                  </p>
+                </motion.div>
               ))}
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

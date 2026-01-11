@@ -1,28 +1,32 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Cormorant_Garamond, Outfit } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SmoothScroll from "@/components/providers/SmoothScroll";
+import CustomCursor from "@/components/decorative/CustomCursor";
 
-const inter = Inter({
-  variable: "--font-inter",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-serif",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const outfit = Outfit({
+  variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Violet Hues | Bespoke Floral Designs by Chiara",
-  description: "Personal local florist creating bespoke floral arrangements with love. Wedding flowers, special occasions, and everyday beauty by Chiara.",
-  keywords: ["florist", "flowers", "wedding flowers", "bouquets", "floral design", "local florist", "bespoke arrangements"],
+  title: "Violet Hues | Bespoke Floral Atelier",
+  description: "An intimate floral atelier crafting bespoke arrangements for life's most precious moments. Weddings, celebrations, and everyday beauty by Chiara.",
+  keywords: ["luxury florist", "bespoke flowers", "wedding florals", "floral atelier", "designer bouquets", "artisan florist"],
   openGraph: {
-    title: "Violet Hues | Bespoke Floral Designs",
-    description: "Personal local florist creating bespoke floral arrangements with love.",
+    title: "Violet Hues | Bespoke Floral Atelier",
+    description: "An intimate floral atelier crafting bespoke arrangements for life's most precious moments.",
     type: "website",
   },
 };
@@ -33,13 +37,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="antialiased bg-white text-deep-violet">
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+    <html lang="en" className={`${cormorant.variable} ${outfit.variable}`}>
+      <body className="antialiased bg-ivory text-noir font-sans selection:bg-champagne/30 selection:text-noir">
+        <SmoothScroll>
+          <CustomCursor />
+          <Header />
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

@@ -2,81 +2,57 @@
 
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
 import { useRef } from "react";
-import Button from "@/components/ui/Button";
-import GradientOrbs from "@/components/decorative/GradientOrbs";
-import {
-  springConfig,
-  fadeInUp,
-  staggerContainer,
-  imageReveal,
-} from "@/lib/animations";
+import Marquee from "@/components/decorative/Marquee";
 
-// Word animation variants
-const wordVariants = {
+const springConfig = {
+  stiffness: 100,
+  damping: 30,
+  mass: 1,
+};
+
+const revealVariants = {
   hidden: {
     opacity: 0,
-    y: 30,
-    rotateX: -40,
+    y: 100,
   },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    rotateX: 0,
     transition: {
-      ...springConfig.snappy,
-      delay: 0.4 + i * 0.1,
+      duration: 1.2,
+      ease: [0.16, 1, 0.3, 1] as const,
+      delay: 0.1 + i * 0.1,
     },
   }),
 };
 
-// Badge animation
-const badgeVariants = {
-  hidden: { opacity: 0, y: -20, scale: 0.9 },
+const imageRevealVariants = {
+  hidden: {
+    clipPath: "inset(100% 0 0 0)",
+    scale: 1.2,
+  },
   visible: {
-    opacity: 1,
-    y: 0,
+    clipPath: "inset(0% 0 0 0)",
     scale: 1,
     transition: {
-      ...springConfig.bouncy,
-      delay: 0.2,
+      clipPath: { duration: 1.4, ease: [0.16, 1, 0.3, 1] as const, delay: 0.3 },
+      scale: { duration: 2, ease: [0.16, 1, 0.3, 1] as const, delay: 0.3 },
     },
   },
 };
 
-// Button container variants
-const buttonContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 1,
-    },
-  },
-};
-
-const buttonVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: springConfig.bouncy,
-  },
-};
-
-// Floating badge variants
 const floatingBadgeVariants = {
-  hidden: { opacity: 0, x: -40, scale: 0.8 },
+  hidden: { opacity: 0, x: 50, scale: 0.9 },
   visible: {
     opacity: 1,
     x: 0,
     scale: 1,
     transition: {
-      ...springConfig.snappy,
-      delay: 1.4,
+      duration: 1,
+      ease: [0.16, 1, 0.3, 1] as const,
+      delay: 1.2,
     },
   },
 };
@@ -88,180 +64,197 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Parallax transforms
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
-  const headingWords = ["Where", "Every", "Bloom"];
-  const highlightWords = ["Tells", "a", "Story"];
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center bg-gradient-hero pt-20 overflow-hidden"
+      className="relative min-h-screen flex flex-col bg-ivory overflow-hidden"
     >
-      {/* Animated background orbs */}
-      <GradientOrbs variant="hero" />
+      {/* Subtle grain overlay */}
+      <div className="grain-overlay" />
+
+      {/* Art Deco corner decorations */}
+      <div className="absolute top-8 left-8 w-20 h-20 border-l border-t border-champagne/30 hidden lg:block" />
+      <div className="absolute top-8 right-8 w-20 h-20 border-r border-t border-champagne/30 hidden lg:block" />
 
       <motion.div
         style={{ opacity }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10"
+        className="flex-1 flex items-center pt-32 pb-16 relative z-10"
       >
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Text Content */}
-          <motion.div
-            style={{ y: textY }}
-            className="text-center lg:text-left"
-          >
-            {/* Animated badge */}
-            <motion.span
-              variants={badgeVariants}
-              initial="hidden"
-              animate="visible"
-              className="inline-block px-4 py-1.5 bg-violet-100 text-violet-700 text-sm font-medium rounded-full mb-6 hover-scale cursor-default"
-            >
-              Bespoke Floral Design
-            </motion.span>
-
-            {/* Animated heading with word reveals */}
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-violet-950 leading-tight mb-6 perspective">
-              <span className="block preserve-3d">
-                {headingWords.map((word, i) => (
-                  <motion.span
-                    key={word}
-                    custom={i}
-                    variants={wordVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="inline-block mr-[0.25em]"
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-              </span>
-              <span className="block text-violet-600 preserve-3d">
-                {highlightWords.map((word, i) => (
-                  <motion.span
-                    key={word}
-                    custom={i + headingWords.length}
-                    variants={wordVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="inline-block mr-[0.25em]"
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-              </span>
-            </h1>
-
-            {/* Animated subtext */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ ...springConfig.gentle, delay: 0.8 }}
-              className="text-lg text-violet-700 max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed"
-            >
-              Personal floristry with a bespoke touch. I create unique, seasonally-inspired
-              arrangements that capture the essence of your most precious moments.
-            </motion.p>
-
-            {/* Animated buttons */}
+        <div className="container-luxe w-full">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+            {/* Text Content */}
             <motion.div
-              variants={buttonContainerVariants}
-              initial="hidden"
-              animate="visible"
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              style={{ y: textY }}
+              className="relative z-20 order-2 lg:order-1"
             >
-              <motion.div variants={buttonVariants}>
-                <Link href="/contact">
-                  <Button size="lg" className="w-full sm:w-auto group shimmer-overlay">
-                    Book a Consultation
-                    <ArrowRight
-                      size={18}
-                      className="ml-2 transition-transform group-hover:translate-x-1"
-                    />
-                  </Button>
-                </Link>
+              {/* Elegant label */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-4 mb-8"
+              >
+                <div className="deco-line" />
+                <span className="text-xs tracking-[0.3em] uppercase text-taupe font-medium">
+                  Bespoke Floral Atelier
+                </span>
               </motion.div>
-              <motion.div variants={buttonVariants}>
-                <Link href="/services">
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    Explore Services
-                  </Button>
+
+              {/* Main heading with split text reveal */}
+              <div className="overflow-hidden mb-6">
+                <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light text-noir leading-[0.9] tracking-tight">
+                  <motion.span
+                    custom={0}
+                    variants={revealVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="block"
+                  >
+                    Where
+                  </motion.span>
+                  <motion.span
+                    custom={1}
+                    variants={revealVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="block"
+                  >
+                    Nature
+                  </motion.span>
+                  <motion.span
+                    custom={2}
+                    variants={revealVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="block text-champagne italic"
+                  >
+                    Becomes Art
+                  </motion.span>
+                </h1>
+              </div>
+
+              {/* Subtext */}
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="text-taupe text-lg lg:text-xl max-w-md leading-relaxed mb-10"
+              >
+                An intimate floral atelier crafting bespoke arrangements
+                for life&apos;s most precious moments.
+              </motion.p>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
+                <Link href="/contact" className="group">
+                  <button className="btn-luxe-filled w-full sm:w-auto group">
+                    <span className="flex items-center gap-3">
+                      Begin Your Journey
+                      <ArrowDownRight
+                        size={16}
+                        className="transition-transform duration-500 group-hover:translate-x-1 group-hover:translate-y-1"
+                      />
+                    </span>
+                  </button>
+                </Link>
+                <Link href="/services" className="group">
+                  <button className="btn-luxe w-full sm:w-auto">
+                    <span>Explore Services</span>
+                  </button>
                 </Link>
               </motion.div>
             </motion.div>
-          </motion.div>
 
-          {/* Hero Image with advanced reveal */}
-          <motion.div style={{ y: imageY }} className="relative">
+            {/* Hero Image */}
             <motion.div
-              variants={imageReveal}
-              initial="hidden"
-              animate="visible"
-              className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl shadow-violet-200/50"
-            >
-              <motion.img
-                src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=800&h=1000&fit=crop"
-                alt="Beautiful purple and violet flower arrangement"
-                className="w-full h-full object-cover"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.6 }}
-              />
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-violet-900/20 to-transparent pointer-events-none" />
-            </motion.div>
-
-            {/* Floating badge with continuous animation */}
-            <motion.div
-              variants={floatingBadgeVariants}
-              initial="hidden"
-              animate="visible"
-              className="absolute -left-4 lg:-left-8 bottom-20 bg-white p-4 rounded-2xl shadow-xl hover-lift"
+              style={{ y: imageY }}
+              className="relative order-1 lg:order-2"
             >
               <motion.div
-                animate={{ y: [-5, 5, -5] }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                variants={imageRevealVariants}
+                initial="hidden"
+                animate="visible"
+                className="relative aspect-[3/4] lg:aspect-[4/5] overflow-hidden"
               >
-                <p className="text-sm font-medium text-violet-800">Crafted with Love</p>
-                <p className="text-xs text-violet-500 mt-1">By Chiara</p>
+                <motion.img
+                  src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1000&h=1250&fit=crop&q=90"
+                  alt="Elegant floral arrangement with soft violet and blush tones"
+                  className="w-full h-full object-cover animate-ken-burns"
+                />
+
+                {/* Elegant overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-noir/20 via-transparent to-transparent pointer-events-none" />
+
+                {/* Vignette effect */}
+                <div className="image-vignette absolute inset-0" />
+              </motion.div>
+
+              {/* Floating badge */}
+              <motion.div
+                variants={floatingBadgeVariants}
+                initial="hidden"
+                animate="visible"
+                className="absolute -right-4 lg:right-8 bottom-12 lg:bottom-24 glass-luxe px-6 py-4 hover-lift"
+              >
+                <motion.div
+                  animate={{ y: [-4, 4, -4] }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <p className="text-xs tracking-[0.2em] uppercase text-champagne mb-1">
+                    Crafted with Intention
+                  </p>
+                  <p className="font-serif text-lg text-noir italic">by Chiara</p>
+                </motion.div>
+              </motion.div>
+
+              {/* Decorative element */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute -left-8 top-1/4 hidden lg:block"
+              >
+                <div className="w-16 h-16 border border-champagne/40 rotate-45 animate-float-elegant" />
               </motion.div>
             </motion.div>
-
-            {/* Decorative floating element */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ ...springConfig.bouncy, delay: 1.6 }}
-              className="absolute -right-4 lg:-right-6 top-20 w-16 h-16 bg-violet-500 rounded-full flex items-center justify-center shadow-lg animate-float-gentle"
-            >
-              <span className="text-white text-2xl">✿</span>
-            </motion.div>
-          </motion.div>
+          </div>
         </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center"
-        >
-          <span className="text-violet-500 text-sm mb-2">Scroll to explore</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ChevronDown className="w-6 h-6 text-violet-400" />
-          </motion.div>
-        </motion.div>
       </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center"
+      >
+        <span className="text-xs tracking-[0.3em] uppercase text-taupe mb-4">
+          Scroll
+        </span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="w-px h-12 bg-gradient-to-b from-champagne to-transparent"
+        />
+      </motion.div>
+
+      {/* Bottom Marquee */}
+      <div className="absolute bottom-0 left-0 right-0 border-t border-champagne/10 bg-ivory/80 backdrop-blur-sm">
+        <Marquee />
+      </div>
     </section>
   );
 }
