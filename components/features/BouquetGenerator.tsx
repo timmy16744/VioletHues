@@ -3,9 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Loader2, Download, RefreshCw, Check } from "lucide-react";
-import Button from "@/components/ui/Button";
-import { springConfig } from "@/lib/animations";
-import GradientOrbs from "@/components/decorative/GradientOrbs";
 
 const budgetOptions = [
   { value: "50", label: "$50" },
@@ -23,11 +20,11 @@ const vibeOptions = [
 ];
 
 const colorOptions = [
-  { value: "purple-violet", label: "Purple & Violet", color: "bg-violet-500" },
-  { value: "pastels", label: "Soft Pastels", color: "bg-pink-200" },
-  { value: "bold-bright", label: "Bold & Bright", color: "bg-orange-500" },
-  { value: "white-green", label: "White & Green", color: "bg-emerald-200" },
-  { value: "warm-tones", label: "Warm Tones", color: "bg-amber-400" },
+  { value: "purple-violet", label: "Purple & Violet", color: "bg-plum" },
+  { value: "pastels", label: "Soft Pastels", color: "bg-blush" },
+  { value: "bold-bright", label: "Bold & Bright", color: "bg-rose" },
+  { value: "white-green", label: "White & Green", color: "bg-sage" },
+  { value: "warm-tones", label: "Warm Tones", color: "bg-champagne" },
 ];
 
 const occasionOptions = [
@@ -38,28 +35,7 @@ const occasionOptions = [
   { value: "just-because", label: "Just Because" },
 ];
 
-// Header animation variants
-const headerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const textVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: springConfig.snappy,
-  },
-};
-
-// Option button component with morph animation
+// Option button component with luxe styling
 function OptionButton({
   selected,
   onClick,
@@ -74,17 +50,16 @@ function OptionButton({
   return (
     <motion.button
       onClick={onClick}
-      className={`flex items-center px-4 py-2 rounded-full text-sm font-medium transition-colors relative overflow-hidden ${
+      className={`flex items-center px-4 py-2.5 text-xs tracking-wide uppercase font-medium transition-all duration-300 relative overflow-hidden border ${
         selected
-          ? "bg-violet-600 text-white"
-          : "bg-violet-100 text-violet-700 hover:bg-violet-200"
+          ? "bg-champagne text-noir border-champagne"
+          : "bg-transparent text-taupe border-noir/10 hover:border-champagne/50 hover:text-noir"
       }`}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       layout
-      transition={springConfig.snappy}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
-      {/* Selection indicator */}
       <AnimatePresence>
         {selected && (
           <motion.span
@@ -92,46 +67,36 @@ function OptionButton({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             className="mr-1.5"
-            transition={springConfig.bouncy}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
           >
-            <Check size={14} />
+            <Check size={12} />
           </motion.span>
         )}
       </AnimatePresence>
 
       {colorDot && (
         <motion.span
-          className={`w-3 h-3 rounded-full ${colorDot} mr-2`}
+          className={`w-2.5 h-2.5 rounded-full ${colorDot} mr-2`}
           animate={{ scale: selected ? [1, 1.3, 1] : 1 }}
           transition={{ duration: 0.3 }}
         />
       )}
       {children}
-
-      {/* Shimmer effect on selection */}
-      {selected && (
-        <motion.span
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-          initial={{ x: "-100%" }}
-          animate={{ x: "100%" }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        />
-      )}
     </motion.button>
   );
 }
 
-// Floating petal for loading animation
-function FloatingPetal({ delay }: { delay: number }) {
+// Floating diamond for loading animation
+function FloatingDiamond({ delay }: { delay: number }) {
   return (
     <motion.div
-      className="absolute w-4 h-4 text-violet-400"
-      initial={{ opacity: 0, y: 0, x: 0, rotate: 0 }}
+      className="absolute w-3 h-3 bg-champagne/40"
+      style={{ transform: "rotate(45deg)" }}
+      initial={{ opacity: 0, y: 0, x: 0 }}
       animate={{
         opacity: [0, 1, 1, 0],
         y: [-20, -60],
         x: [0, Math.random() * 40 - 20],
-        rotate: [0, 360],
       }}
       transition={{
         duration: 2,
@@ -139,11 +104,7 @@ function FloatingPetal({ delay }: { delay: number }) {
         repeat: Infinity,
         ease: "easeOut",
       }}
-    >
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2C13.5 5 16 7.5 19 9C16 10.5 13.5 13 12 16C10.5 13 8 10.5 5 9C8 7.5 10.5 5 12 2Z" />
-      </svg>
-    </motion.div>
+    />
   );
 }
 
@@ -197,64 +158,65 @@ export default function BouquetGenerator() {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-violet-100 via-violet-50 to-lavender relative overflow-hidden">
-      {/* Animated background orbs */}
-      <GradientOrbs variant="subtle" />
+    <section className="section-luxe bg-ivory-dark relative overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(201, 169, 98, 0.1) 1px, transparent 0)`,
+            backgroundSize: "48px 48px",
+          }}
+        />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* Art Deco corners */}
+      <div className="absolute top-12 left-12 w-24 h-24 border-l border-t border-champagne/20 hidden lg:block" />
+      <div className="absolute bottom-12 right-12 w-24 h-24 border-r border-b border-champagne/20 hidden lg:block" />
+
+      <div className="container-luxe relative z-10">
         {/* Section Header */}
         <motion.div
-          variants={headerVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-12"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
+          className="text-center mb-16"
         >
-          <motion.span
-            variants={textVariants}
-            className="inline-flex items-center px-4 py-1.5 bg-violet-600 text-white text-sm font-medium rounded-full mb-4 hover-scale"
-          >
-            <motion.span
-              animate={{ rotate: [0, 15, -15, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <Sparkles size={16} className="mr-2" />
-            </motion.span>
-            AI-Powered
-          </motion.span>
-          <motion.h2
-            variants={textVariants}
-            className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-violet-950 mb-4"
-          >
-            Design Your Dream Bouquet
-          </motion.h2>
-          <motion.p
-            variants={textVariants}
-            className="text-violet-700 max-w-2xl mx-auto"
-          >
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-12 h-px bg-gradient-to-r from-transparent to-champagne" />
+            <span className="inline-flex items-center gap-2 text-xs tracking-[0.3em] uppercase text-champagne">
+              <Sparkles size={14} />
+              AI-Powered
+            </span>
+            <div className="w-12 h-px bg-gradient-to-l from-transparent to-champagne" />
+          </div>
+          <h2 className="font-serif text-4xl lg:text-5xl xl:text-6xl font-light text-noir leading-tight mb-6">
+            Design Your
+            <span className="text-champagne italic"> Dream Bouquet</span>
+          </h2>
+          <p className="text-taupe text-lg max-w-2xl mx-auto leading-relaxed">
             Let our AI help visualize your perfect arrangement. Select your preferences
             and see your dream bouquet come to life.
-          </motion.p>
+          </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Options Panel */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={springConfig.gentle}
-            className="bg-white rounded-3xl p-8 shadow-xl shadow-violet-200/30 hover:shadow-2xl hover:shadow-violet-200/40 transition-shadow duration-500"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
+            className="bg-ivory p-8 lg:p-10 border border-noir/5 relative"
           >
+            {/* Corner decorations */}
+            <div className="absolute top-0 left-0 w-8 h-8 border-l border-t border-champagne/30" />
+            <div className="absolute bottom-0 right-0 w-8 h-8 border-r border-b border-champagne/30" />
+
             {/* Budget Selection */}
-            <motion.div
-              className="mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <label className="block text-sm font-medium text-violet-800 mb-3">
+            <div className="mb-8">
+              <label className="block text-xs tracking-[0.2em] uppercase text-taupe mb-4">
                 Budget Range
               </label>
               <div className="flex flex-wrap gap-2">
@@ -268,17 +230,11 @@ export default function BouquetGenerator() {
                   </OptionButton>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
             {/* Vibe Selection */}
-            <motion.div
-              className="mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <label className="block text-sm font-medium text-violet-800 mb-3">
+            <div className="mb-8">
+              <label className="block text-xs tracking-[0.2em] uppercase text-taupe mb-4">
                 Vibe
               </label>
               <div className="flex flex-wrap gap-2">
@@ -292,17 +248,11 @@ export default function BouquetGenerator() {
                   </OptionButton>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
             {/* Color Selection */}
-            <motion.div
-              className="mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <label className="block text-sm font-medium text-violet-800 mb-3">
+            <div className="mb-8">
+              <label className="block text-xs tracking-[0.2em] uppercase text-taupe mb-4">
                 Color Palette
               </label>
               <div className="flex flex-wrap gap-2">
@@ -317,17 +267,11 @@ export default function BouquetGenerator() {
                   </OptionButton>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
             {/* Occasion Selection */}
-            <motion.div
-              className="mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-            >
-              <label className="block text-sm font-medium text-violet-800 mb-3">
+            <div className="mb-10">
+              <label className="block text-xs tracking-[0.2em] uppercase text-taupe mb-4">
                 Occasion
               </label>
               <div className="flex flex-wrap gap-2">
@@ -341,52 +285,35 @@ export default function BouquetGenerator() {
                   </OptionButton>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
-            {/* Generate Button with pulse effect */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
+            {/* Generate Button */}
+            <motion.button
+              onClick={handleGenerate}
+              disabled={isGenerating}
+              className="w-full relative px-8 py-4 bg-champagne border border-champagne text-noir text-xs tracking-[0.15em] uppercase font-medium overflow-hidden transition-all duration-500 hover:bg-noir hover:text-ivory hover:border-noir disabled:opacity-50 disabled:cursor-not-allowed"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
             >
-              <motion.div
-                animate={!isGenerating && !generatedImage ? {
-                  boxShadow: [
-                    "0 0 0 0 rgba(139, 92, 246, 0)",
-                    "0 0 0 10px rgba(139, 92, 246, 0.1)",
-                    "0 0 0 0 rgba(139, 92, 246, 0)",
-                  ],
-                } : {}}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="rounded-full"
-              >
-                <Button
-                  onClick={handleGenerate}
-                  disabled={isGenerating}
-                  size="lg"
-                  magnetic
-                  className="w-full"
-                >
-                  {isGenerating ? (
-                    <>
-                      <Loader2 size={18} className="mr-2 animate-spin" />
-                      Creating Your Bouquet...
-                    </>
-                  ) : (
-                    <>
-                      <motion.span
-                        animate={{ rotate: [0, 360] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                      >
-                        <Sparkles size={18} className="mr-2" />
-                      </motion.span>
-                      Generate Bouquet
-                    </>
-                  )}
-                </Button>
-              </motion.div>
-            </motion.div>
+              <span className="relative flex items-center justify-center gap-3">
+                {isGenerating ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    Creating Your Bouquet...
+                  </>
+                ) : (
+                  <>
+                    <motion.span
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Sparkles size={16} />
+                    </motion.span>
+                    Generate Bouquet
+                  </>
+                )}
+              </span>
+            </motion.button>
 
             <AnimatePresence>
               {error && (
@@ -394,7 +321,7 @@ export default function BouquetGenerator() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="mt-4 text-sm text-red-600 text-center"
+                  className="mt-4 text-sm text-rose text-center"
                 >
                   {error}
                 </motion.p>
@@ -407,10 +334,14 @@ export default function BouquetGenerator() {
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={springConfig.gentle}
-            className="bg-white rounded-3xl p-8 shadow-xl shadow-violet-200/30 hover:shadow-2xl hover:shadow-violet-200/40 transition-shadow duration-500"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
+            className="bg-ivory p-8 lg:p-10 border border-noir/5 relative"
           >
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-violet-50 to-violet-100 flex items-center justify-center relative">
+            {/* Corner decorations */}
+            <div className="absolute top-0 left-0 w-8 h-8 border-l border-t border-champagne/30" />
+            <div className="absolute bottom-0 right-0 w-8 h-8 border-r border-b border-champagne/30" />
+
+            <div className="aspect-square overflow-hidden bg-ivory-dark flex items-center justify-center relative">
               <AnimatePresence mode="wait">
                 {isGenerating ? (
                   <motion.div
@@ -420,49 +351,53 @@ export default function BouquetGenerator() {
                     exit={{ opacity: 0, scale: 0.9 }}
                     className="text-center relative"
                   >
-                    {/* Floating petals animation */}
+                    {/* Floating diamonds animation */}
                     {[...Array(6)].map((_, i) => (
-                      <FloatingPetal key={i} delay={i * 0.3} />
+                      <FloatingDiamond key={i} delay={i * 0.3} />
                     ))}
 
-                    <div className="w-20 h-20 mx-auto mb-4 relative">
+                    <div className="w-20 h-20 mx-auto mb-6 relative">
                       {/* Outer ring */}
                       <motion.div
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-0 rounded-full border-4 border-violet-200 border-t-violet-600"
+                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-0 border border-champagne/30"
+                        style={{ transform: "rotate(45deg)" }}
                       />
                       {/* Inner ring */}
                       <motion.div
                         animate={{ rotate: -360 }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-2 rounded-full border-2 border-violet-100 border-b-violet-400"
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-3 border border-champagne/50"
+                        style={{ transform: "rotate(45deg)" }}
                       />
                       {/* Center sparkle */}
                       <motion.div
                         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
+                        animate={{ scale: [1, 1.2, 1], opacity: [0.6, 1, 0.6] }}
+                        transition={{ duration: 2, repeat: Infinity }}
                       >
-                        <Sparkles className="w-8 h-8 text-violet-600" />
+                        <Sparkles className="w-6 h-6 text-champagne" />
                       </motion.div>
                     </div>
                     <motion.p
-                      className="text-violet-600 font-medium"
+                      className="text-noir font-serif text-lg italic"
                       animate={{ opacity: [0.7, 1, 0.7] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
+                      transition={{ duration: 2, repeat: Infinity }}
                     >
                       Creating magic...
                     </motion.p>
-                    <p className="text-violet-400 text-sm mt-1">This may take a moment</p>
+                    <p className="text-taupe text-xs tracking-wide uppercase mt-2">
+                      This may take a moment
+                    </p>
                   </motion.div>
                 ) : generatedImage ? (
                   <motion.div
                     key="image"
-                    initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
-                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
-                    transition={{ duration: 0.5 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
                     className="w-full h-full relative"
                   >
                     <img
@@ -477,16 +412,16 @@ export default function BouquetGenerator() {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          className="absolute inset-0 bg-violet-600/80 flex items-center justify-center"
+                          className="absolute inset-0 bg-champagne/90 flex items-center justify-center"
                         >
                           <motion.div
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             exit={{ scale: 0 }}
-                            transition={springConfig.bouncy}
-                            className="bg-white rounded-full p-4"
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            className="bg-ivory p-4"
                           >
-                            <Check className="w-12 h-12 text-violet-600" />
+                            <Check className="w-10 h-10 text-champagne" />
                           </motion.div>
                         </motion.div>
                       )}
@@ -501,26 +436,23 @@ export default function BouquetGenerator() {
                     className="text-center p-8"
                   >
                     <motion.div
-                      className="w-20 h-20 mx-auto mb-4 bg-violet-100 rounded-full flex items-center justify-center"
+                      className="w-20 h-20 mx-auto mb-6 border border-champagne/30 flex items-center justify-center"
+                      style={{ transform: "rotate(45deg)" }}
                       animate={{
                         scale: [1, 1.05, 1],
-                        boxShadow: [
-                          "0 0 0 0 rgba(139, 92, 246, 0.2)",
-                          "0 0 0 15px rgba(139, 92, 246, 0)",
-                          "0 0 0 0 rgba(139, 92, 246, 0)",
-                        ],
                       }}
-                      transition={{ duration: 2, repeat: Infinity }}
+                      transition={{ duration: 3, repeat: Infinity }}
                     >
                       <motion.div
+                        style={{ transform: "rotate(-45deg)" }}
                         animate={{ rotate: [0, 10, -10, 0] }}
                         transition={{ duration: 4, repeat: Infinity }}
                       >
-                        <Sparkles className="w-10 h-10 text-violet-400" />
+                        <Sparkles className="w-8 h-8 text-champagne/60" />
                       </motion.div>
                     </motion.div>
-                    <p className="text-violet-600 font-medium">Your bouquet preview</p>
-                    <p className="text-violet-400 text-sm mt-1">
+                    <p className="text-noir font-serif text-lg italic">Your bouquet preview</p>
+                    <p className="text-taupe text-xs tracking-wide uppercase mt-2">
                       Select your preferences and generate
                     </p>
                   </motion.div>
@@ -534,33 +466,29 @@ export default function BouquetGenerator() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
-                  transition={springConfig.snappy}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
                   className="mt-6 flex gap-4"
                 >
-                  <Button
+                  <button
                     onClick={handleDownload}
-                    variant="secondary"
-                    magnetic
-                    className="flex-1"
+                    className="flex-1 px-6 py-3 border border-noir/20 text-noir text-xs tracking-[0.1em] uppercase font-medium hover:border-champagne hover:text-champagne transition-colors duration-300 flex items-center justify-center gap-2"
                   >
-                    <Download size={16} className="mr-2" />
+                    <Download size={14} />
                     Download
-                  </Button>
-                  <Button
+                  </button>
+                  <button
                     onClick={handleGenerate}
-                    variant="outline"
-                    magnetic
-                    className="flex-1"
                     disabled={isGenerating}
+                    className="flex-1 px-6 py-3 border border-noir/20 text-noir text-xs tracking-[0.1em] uppercase font-medium hover:border-champagne hover:text-champagne transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     <motion.span
                       animate={isGenerating ? { rotate: 360 } : {}}
                       transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                     >
-                      <RefreshCw size={16} className="mr-2" />
+                      <RefreshCw size={14} />
                     </motion.span>
                     Regenerate
-                  </Button>
+                  </button>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -571,18 +499,17 @@ export default function BouquetGenerator() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
-                  transition={{ ...springConfig.snappy, delay: 0.1 }}
-                  className="mt-6 p-4 bg-gradient-to-r from-violet-50 to-violet-100 rounded-xl text-center border border-violet-100"
+                  transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
+                  className="mt-6 p-5 bg-ivory-dark text-center border border-champagne/10"
                 >
-                  <p className="text-violet-700 text-sm">
+                  <p className="text-taupe text-sm">
                     Love what you see?{" "}
-                    <motion.a
+                    <a
                       href="/contact"
-                      className="font-medium text-violet-600 underline hover:text-violet-800"
-                      whileHover={{ scale: 1.05 }}
+                      className="text-champagne hover:text-champagne-dark underline underline-offset-4 transition-colors"
                     >
                       Contact us
-                    </motion.a>{" "}
+                    </a>{" "}
                     to bring this bouquet to life!
                   </p>
                 </motion.div>
